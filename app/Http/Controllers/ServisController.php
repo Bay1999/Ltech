@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ServisModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use PDF;
@@ -53,5 +54,35 @@ class ServisController extends Controller
         return view('layouts.pdf.servisMasuk', compact('servis', 'src'));
         // $pdf = PDF::loadview('layouts.pdf.servisMasuk', compact('servis'));
         // return $pdf->download('Servis Masuk.pdf');
+    }
+
+    public function ambil($id)
+    {
+        $id_servis = $id;
+        return view('layouts.servis.ambil', compact('id_servis'));
+    }
+
+    public function simpan_ambil(Request $request)
+    {
+        $servis = ServisModel::find($request->id_servis);
+        $tgl_sekarang = Carbon::now();
+
+        // dd($tgl_sekarang->format('Y-m-d'));
+        $servis->update([
+            'tgl_keluar' => $tgl_sekarang->format('Y-m-d'),
+            'nama_pengambil' => $request->nama_pengambil,
+            'biaya' => $request->biaya,
+            'part_diganti' => $request->part_diganti,
+            'flag' => 'keluar',
+        ]);
+
+        return redirect()->route('servis.keluar');
+    }
+
+    public function keluar()
+    {
+        $servisKeluar = ServisModel::where('flag', '=', 'keluar')->latest()->simplePaginate(10);
+
+        return view('layouts.servis.keluar.index', compact('servisKeluar'));
     }
 }

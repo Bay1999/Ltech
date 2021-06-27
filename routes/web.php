@@ -55,5 +55,9 @@ Route::get('/servis/masuk', [ServisController::class, 'masuk'])->name('servis.ma
 Route::get('/servis/masuk/add', [ServisController::class, 'create'])->name('servis.masuk.create');
 Route::post('/servis/masuk/store', [ServisController::class, 'store'])->name('servis.masuk.store');
 Route::get('/servis/masuk/cetak/{id}', [ServisController::class, 'cetak'])->name('servis.masuk.cetak');
+Route::get('/servis/masuk/ambil/{id}', [ServisController::class, 'ambil'])->name('servis.masuk.ambil');
+Route::post('/servis/masuk/simpan_ambil', [ServisController::class, 'simpan_ambil'])->name('servis.masuk.diambil');
+
+Route::get('/servis/keluar', [ServisController::class, 'keluar'])->name('servis.keluar');
 
 Auth::routes();

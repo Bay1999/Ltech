@@ -67,14 +67,15 @@
         <div style="padding-top:15px;padding-left:15px;padding-right:15px">
             <div>
                 <div class="col">
+                    <div>
+                        <img src="{{asset($servis->qrcode)}}" alt="foto" style="width: 4rem;height: 4rem;">
+                    </div>
                     <p style="font-size: 10px;margin-bottom:5px">Tgl {{$servis->tgl_masuk}}</p>
                     <b style="font-size: 12px">L-TECH COMPUTINDO</b>
                     <p style="font-size: 10px">Lamongan</p>
                     <p style="font-size: 10px; margin-bottom:5px">Kepada : <b style="font-size: 12px">{{$servis->nama_customer}}</b></p>
                 </div>
-                <div style="position: absolute; right:50rem; top:1.5rem">
-                    <img src="{{$src}}" alt="foto" style="width: 5rem;height: 5rem;">
-                </div>
+                
             </div>
             <div class="row mt-2">
                 <table style="width: 100%">
