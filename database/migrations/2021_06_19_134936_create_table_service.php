@@ -28,6 +28,7 @@ class CreateTableService extends Migration
             $table->string('biaya')->nullable();
             $table->string('qrcode')->nullable();
             $table->string('flag');
+            $table->string('status')->default('proses');
 
             $table->timestamps();
         });

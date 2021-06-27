@@ -25,5 +25,6 @@ class ServisModel extends Model
         'biaya',
         'qrcode',
         'flag',
+        'status',
     ];
 }

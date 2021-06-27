@@ -26,25 +26,41 @@
                         <th scope="col">Nama Barang</th>
                         <th scope="col">Nama Customer</th>
                         <th scope="col">Tanggal Masuk</th>
-                        <th scope="col">QrCode</th>
+                        <th scope="col">Status</th>
+                        {{-- <th scope="col">QrCode</th> --}}
                         <th scope="col" class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                         @forelse ($servisMasuk as $servis)
                         <tr>
-                            <th style="padding-top: 2.5rem;" scope="row">{{$loop->iteration}}</th>
-                            <td style="padding-top: 2.5rem;"><a href="">{{$servis->nama_barang}}</a></td>
-                            <td style="padding-top: 2.5rem;">{{$servis->nama_customer}}</td>
-                            <td style="padding-top: 2.5rem;">{{date('d M Y',strtotime($servis->tgl_masuk))}}</td>
-                            <td><img src="{{ asset($servis->qrcode)}}" alt="foto" style="width: 5rem;height: 5rem;object-fit: cover"></td>
-                            <td style="padding-top: 1.2rem;" class="text-center">
+                            <th scope="row">{{$loop->iteration}}</th>
+                            <td><a href="">{{$servis->nama_barang}}</a></td>
+                            <td>{{$servis->nama_customer}}</td>
+                            <td>{{date('d M Y',strtotime($servis->tgl_masuk))}}</td>
+                            @if ($servis->status == 'proses')
+                            <td><span class="badge badge-pill badge-danger">Belum Selesai</span></td>
+                            @else
+                            <td ><span class="badge badge-pill badge-success">Selesai</span></td>
+                            @endif
+                            {{-- <td><img src="{{ asset($servis->qrcode)}}" alt="foto" style="width: 5rem;height: 5rem;object-fit: cover"></td> --}}
+                            <td class="text-center d-flex justify-content-center">
+                                
+                                <a href="{{ route('servis.masuk.cetak', $servis->id)}}" target="blank" class="mx-1 btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
+                                    
+                                @if ($servis->status == 'proses')
+                                <form action="{{ route('servis.masuk.selesai', $servis->id)}}" method="post">
+                                    @csrf
+                                    <button id="selesai" class="mx-1 btn btn-success btn-sm"><i class="fa fa-check"></i></button>
+                                </form>
+                                @else
+                                <a href="{{ route('servis.masuk.ambil', $servis->id)}}" class="mx-1 btn btn-success btn-sm"><i class="fa fa-dolly"></i></a>
+                                @endif
+
                                 <form action="" method="post">
                                     @csrf
-                                    {{method_field('DELETE')}}
-                                    <a href="{{ route('servis.masuk.cetak', $servis->id)}}" target="blank" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
-                                    <a href="{{ route('servis.masuk.ambil', $servis->id)}}" class="btn btn-success btn-sm"><i class="fa fa-dolly"></i></a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                        {{method_field('DELETE')}}
+                                    <button type="submit" class="mx-1 btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -59,6 +75,5 @@
             </div>
         </div>
     </div>
-
 </div>
 @endsection

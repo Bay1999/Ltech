@@ -56,11 +56,23 @@ class ServisController extends Controller
         // return $pdf->download('Servis Masuk.pdf');
     }
 
+    public function selesai($id)
+    {
+        $servis = ServisModel::find($id);
+        $servis->update([
+            'status' => 'selesai',
+        ]);
+        // dd($servis);
+
+        return redirect()->route('servis.masuk');
+    }
+
     public function ambil($id)
     {
         $id_servis = $id;
         return view('layouts.servis.ambil', compact('id_servis'));
     }
+
 
     public function simpan_ambil(Request $request)
     {
