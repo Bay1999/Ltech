@@ -14,4 +14,11 @@ class ApiController extends Controller
         // $list = ServisModel::where('nama_customer', 'like', '%' . $search . '%')->get();
         return response()->json($list, 200);
     }
+
+    public function scan($search)
+    {
+        $list = ServisModel::where('invoice', 'like', '%' . $search . '%')->get();
+        // $list = ServisModel::where('nama_customer', 'like', '%' . $search . '%')->get();
+        return response()->json($list, 200);
+    }
 }
