@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PembelianModel;
 use App\Models\SparepartModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PembelianController extends Controller
@@ -13,6 +14,11 @@ class PembelianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $dataPembelian = PembelianModel::latest()->simplePaginate(10);
@@ -60,7 +66,7 @@ class PembelianController extends Controller
         ]);
 
         if ($store) {
-            return redirect()->route('sparepart.pembelian.index')->with('success', 'Berhasil menambahkan data pembelian sparepart baru');
+            return redirect()->route('sparepart.data.index')->with('success', 'Berhasil menambahkan data pembelian sparepart baru');
         } else {
             return redirect()->route('sparepart.pembelian.index')->with('failed', 'Gagal menambahkan data pembelian sparepart baru');
         }
@@ -192,5 +198,13 @@ class PembelianController extends Controller
         $pembelian->delete();
 
         return redirect()->route('sparepart.pembelian.index')->with('success', 'Berhasil menghapus data pembelian sparepart');
+    }
+
+    public function laporan()
+    {
+        $monthNow = Carbon::now()->format('m');
+        $datas = PembelianModel::whereMonth('created_at', $monthNow)->get();
+        // dd($monthNow);
+        return view('layouts.pdf.laporanPembelian', compact('datas'));
     }
 }

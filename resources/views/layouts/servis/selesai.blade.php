@@ -11,14 +11,23 @@
             <h6 class="m-0 font-weight-bold text-primary">Masukan Data Setelah Selesai Servis</h6>    
         </div>
         <div class="card-body">
-            <form class="needs-validation" action="{{ route('servis.masuk.ambil.simpan')}}" method="post" enctype="multipart/form-data" novalidate>
+            <form class="needs-validation" action="{{ route('servis.masuk.selesai.simpan')}}" method="post" enctype="multipart/form-data" novalidate>
                 @csrf
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                        <label for="validationCustom02">Nama Pengambil</label>
-                        <input type="text" class="form-control" id="validationCustom02" placeholder="Namanya pengambil" name="nama_pengambil" required>
+                        <label for="validationCustom02">Biaya</label>
+                        <input type="text" class="form-control" id="validationCustom02" placeholder="Biaya" name="biaya" required>
                         <div class="invalid-feedback">
-                            Nama Pengambil masih kosong.
+                            Biaya masih kosong.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationCustom04">Part Yang Diganti</label>
+                        <textarea name="part_diganti" placeholder="Part yang di ganti" class="form-control" cols="3" required></textarea>
+                        <div class="invalid-feedback">
+                            Part yang diganti masih kosong.
                         </div>
                     </div>
                 </div>

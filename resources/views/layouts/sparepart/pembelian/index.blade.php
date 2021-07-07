@@ -13,6 +13,7 @@
                     <h6 class="m-0 font-weight-bold text-primary" style="padding-top:.7rem">Data Pembelian Sparepart</h6>
                 </div>
                 <div class="col-md-6 text-right">
+                    <a href="{{ route('sparepart.pembelian.laporan')}}" target="blank" class="btn btn-primary"><i class="fa fa-print"></i> Laporan Pembelian</a>
                     <a href="{{ route('sparepart.pembelian.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Pembelian Sparepart</a>
                 </div>
             </div>

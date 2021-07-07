@@ -38,16 +38,8 @@
                             <td>{{$servis->nama_pengambil}}</td>
                             <td>{{date('d M Y',strtotime($servis->tgl_keluar))}}</td>
                             <td>Rp {{number_format($servis->biaya,0,',','.')}}</td>
-                            {{-- <td><img src="{{ asset($servis->qrcode)}}" alt="foto" style="width: 5rem;height: 5rem;object-fit: cover"></td> --}}
-                            {{-- <td style="padding-top: 1.2rem;" class="text-center">
-                                <form action="" method="post">
-                                    @csrf
-                                    {{method_field('DELETE')}}
-                                    <a href="{{ route('servis.masuk.cetak', $servis->id)}}" target="blank" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
-                                    <a href="{{ route('servis.masuk.ambil', $servis->id)}}" class="btn btn-success btn-sm"><i class="fa fa-dolly"></i></a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                </form>
-                            </td> --}}
+                            <td class="text-center"><a href="{{ route('servis.keluar.cetak', $servis->id)}}" target="blank" class="mx-1 btn btn-primary btn-sm"><i class="fa fa-print"></i></a></td>
+                            
                         </tr>
                         @empty
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">

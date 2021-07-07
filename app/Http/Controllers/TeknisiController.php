@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\TeknisiModel;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class TeknisiController extends Controller
 {
@@ -13,6 +15,12 @@ class TeknisiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $dataTeknisi = TeknisiModel::latest()->simplePaginate(10);
@@ -49,7 +57,14 @@ class TeknisiController extends Controller
             'foto' => 'images/teknisi/' . $namaFoto,
         ]);
 
-        if ($store) {
+        $simpan = User::create([
+            'name' => $request->nama,
+            'email' => $request->email,
+            'type' => 'teknisi',
+            'password' => Hash::make($request->password),
+        ]);
+
+        if ($store && $simpan) {
             return redirect()->route('teknisi.index')->with('success', 'Berhasil menambahkan data teknisi baru');
         } else {
             return redirect()->route('teknisi.index')->with('failed', 'Gagal menambahkan data teknisi baru');
@@ -135,12 +150,15 @@ class TeknisiController extends Controller
     public function destroy($id)
     {
         $dataTeknisi = TeknisiModel::find($id);
+        $user = User::where('name', $dataTeknisi->nama)->first();
 
         if (file_exists($dataTeknisi->foto)) {
             @unlink($dataTeknisi->foto);
             $dataTeknisi->delete();
+            $user->delete();
         } else {
             $dataTeknisi->delete();
+            $user->delete();
         }
 
         return redirect()->route('teknisi.index')->with('success', 'Berhasil menghapus data teknisi');

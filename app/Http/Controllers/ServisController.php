@@ -10,6 +10,10 @@ use PDF;
 
 class ServisController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function masuk()
     {
         $servisMasuk = ServisModel::where('flag', '=', 'masuk')->latest()->simplePaginate(10);
@@ -47,32 +51,25 @@ class ServisController extends Controller
     {
         $servis = ServisModel::find($id);
 
-        $qrcode = $servis->qrcode;
-        $qrcodeData = base64_encode(asset($servis->qrcode));
-        $src = 'data:' . mime_content_type($qrcode) . ';base64,' . $qrcodeData;
+        // $qrcode = $servis->qrcode;
+        // $qrcodeData = base64_encode(asset($servis->qrcode));
+        // $src = 'data:' . mime_content_type($qrcode) . ';base64,' . $qrcodeData;
 
-        return view('layouts.pdf.servisMasuk', compact('servis', 'src'));
+        return view('layouts.pdf.servisMasuk', compact('servis'));
         // $pdf = PDF::loadview('layouts.pdf.servisMasuk', compact('servis'));
         // return $pdf->download('Servis Masuk.pdf');
     }
 
-    public function selesai($id)
+    public function cetakAll()
     {
-        $servis = ServisModel::find($id);
-        $servis->update([
-            'status' => 'selesai',
-        ]);
-        // dd($servis);
-
-        return redirect()->route('servis.masuk');
     }
 
     public function ambil($id)
     {
         $id_servis = $id;
+
         return view('layouts.servis.ambil', compact('id_servis'));
     }
-
 
     public function simpan_ambil(Request $request)
     {
@@ -83,12 +80,31 @@ class ServisController extends Controller
         $servis->update([
             'tgl_keluar' => $tgl_sekarang->format('Y-m-d'),
             'nama_pengambil' => $request->nama_pengambil,
-            'biaya' => $request->biaya,
-            'part_diganti' => $request->part_diganti,
             'flag' => 'keluar',
         ]);
 
         return redirect()->route('servis.keluar');
+    }
+
+
+    public function selesai($id)
+    {
+        $id_servis = $id;
+        return view('layouts.servis.selesai', compact('id_servis'));
+    }
+
+
+    public function simpan_selesai(Request $request)
+    {
+        $servis = ServisModel::find($request->id_servis);
+        // dd($tgl_sekarang->format('Y-m-d'));
+        $servis->update([
+            'biaya' => $request->biaya,
+            'part_diganti' => $request->part_diganti,
+            'status' => 'selesai',
+        ]);
+
+        return redirect()->route('servis.masuk');
     }
 
     public function keluar()
@@ -96,5 +112,11 @@ class ServisController extends Controller
         $servisKeluar = ServisModel::where('flag', '=', 'keluar')->latest()->simplePaginate(10);
 
         return view('layouts.servis.keluar.index', compact('servisKeluar'));
+    }
+    public function keluarCetak($id)
+    {
+        $servis = ServisModel::find($id);
+
+        return view('layouts.pdf.servisKeluar', compact('servis'));
     }
 }

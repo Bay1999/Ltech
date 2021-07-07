@@ -30,7 +30,7 @@
                     {{-- <p style="font-size: 10px; margin-bottom:5px">Kepada : <b style="font-size: 12px">{{$servis->nama_customer}}</b></p> --}}
                 </div>
                 <div class="ml-auto">
-                    <b>Tanda Terima</b>
+                    <b>Nota Servis</b>
                 </div>
             </div>
             
@@ -45,15 +45,19 @@
                     <thead>
                     <tr>
                         <th scope="col">Nama Barang</th>
-                        <th scope="col">Kelengkapan</th>
-                        <th scope="col">keluhan</th>
+                        <th scope="col">Part yang diganti</th>
+                        <th scope="col">Harga</th>
                     </tr>
                     </thead>
-                    <tbody style="height: 10rem">
-                        <tr>
+                    <tbody>
+                        <tr style="height: 8rem">
                             <td>{{$servis->nama_barang}}</td>
-                            <td>{{$servis->kelengkapan}}</td>
-                            <td>{{$servis->keluhan}}</td>
+                            <td>{{$servis->part_diganti}}</td>
+                            <td>Rp {{number_format($servis->biaya,0,',','.')}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-right">Total</td>
+                            <td>Rp {{number_format($servis->biaya,0,',','.')}}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -49,10 +49,25 @@
                 </div>
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
+                        <label>Foto</label>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" name="foto" id="validatedCustomFile" required>
                             <label class="custom-file-label" for="validatedCustomFile">Pilih foto teknisi...</label>
                             <div class="invalid-feedback">Foto teknisi masih kosong</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom03">Email</label>
+                        <input type="text" class="form-control" id="validationCustom03" placeholder="email" name="email" required>
+                        <div class="invalid-feedback">
+                            Username teknisi masih kosong.
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom03">Password</label>
+                        <input type="password" class="form-control" id="validationCustom03" placeholder="password" name="password" required>
+                        <div class="invalid-feedback">
+                            Password teknisi masih kosong.
                         </div>
                     </div>
                 </div>

@@ -13,6 +13,7 @@
                     <h6 class="m-0 font-weight-bold text-primary" style="padding-top:.7rem">Data Servis Masuk</h6>
                 </div>
                 <div class="col-md-6 text-right">
+                    <a href="{{ route('servis.masuk.cetak.all')}}" target="blank" class="btn btn-primary"><i class="fa fa-print"></i> Printout Servis</a>
                     <a href="{{ route('servis.masuk.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Servis</a>
                 </div>
             </div>
@@ -49,10 +50,7 @@
                                 <a href="{{ route('servis.masuk.cetak', $servis->id)}}" target="blank" class="mx-1 btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
                                     
                                 @if ($servis->status == 'proses')
-                                <form action="{{ route('servis.masuk.selesai', $servis->id)}}" method="post">
-                                    @csrf
-                                    <button id="selesai" class="mx-1 btn btn-success btn-sm"><i class="fa fa-check"></i></button>
-                                </form>
+                                <a href="{{ route('servis.masuk.selesai', $servis->id)}}" class="mx-1 btn btn-success btn-sm"><i class="fa fa-check"></i></a>
                                 @else
                                 <a href="{{ route('servis.masuk.ambil', $servis->id)}}" class="mx-1 btn btn-success btn-sm"><i class="fa fa-dolly"></i></a>
                                 @endif

@@ -13,6 +13,7 @@
                     <h6 class="m-0 font-weight-bold text-primary" style="padding-top:.7rem">Penjualan Data Sparepart</h6>
                 </div>
                 <div class="col-md-6 text-right">
+                    <a href="{{ route('sparepart.penjualan.laporan')}}" target="blank" class="btn btn-primary"><i class="fa fa-print"></i> Laporan Penjualan</a>
                     <a href="{{ route('sparepart.penjualan.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Penjualan Sparepart</a>
                 </div>
             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PenjualanModel;
 use App\Models\SparepartModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
@@ -13,6 +14,10 @@ class PenjualanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $dataPenjualan = PenjualanModel::latest()->simplePaginate(10);
@@ -121,5 +126,13 @@ class PenjualanController extends Controller
 
         $penjualan->delete();
         return redirect()->route('sparepart.penjualan.index');
+    }
+
+    public function laporan()
+    {
+        $monthNow = Carbon::now()->format('m');
+        $datas = PenjualanModel::whereMonth('created_at', $monthNow)->get();
+        // dd($monthNow);
+        return view('layouts.pdf.laporanPenjualan', compact('datas'));
     }
 }

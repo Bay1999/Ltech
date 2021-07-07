@@ -8,6 +8,7 @@ use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ServisController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,10 @@ use App\Http\Controllers\ServisController;
 */
 
 Route::get('/', function () {
-    return view('layouts.dashboard');
-})->name('dashboard');
+    return redirect()->route('dashboard');
+})->name('home');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/teknisi', [TeknisiController::class, 'index'])->name('teknisi.index');
 Route::get('/teknisi/add', [TeknisiController::class, 'create'])->name('teknisi.create');
@@ -45,20 +48,28 @@ Route::get('/sparepart/pembelian/edit/{id}', [PembelianController::class, 'edit'
 Route::post('/sparepart/pembelian/update/{id}', [PembelianController::class, 'update'])->name('sparepart.pembelian.update');
 Route::delete('/sparepart/pembelian/destroy/{id}', [PembelianController::class, 'destroy'])->name('sparepart.pembelian.destroy');
 Route::post('/sparepart/pembelian/store', [PembelianController::class, 'store'])->name('sparepart.pembelian.store');
+Route::get('/sparepart/pembelian/laporan', [PembelianController::class, 'laporan'])->name('sparepart.pembelian.laporan');
 
 Route::get('/sparepart/penjualan', [PenjualanController::class, 'index'])->name('sparepart.penjualan.index');
 Route::get('/sparepart/penjualan/add', [PenjualanController::class, 'create'])->name('sparepart.penjualan.create');
 Route::post('/sparepart/penjualan/store', [PenjualanController::class, 'store'])->name('sparepart.penjualan.store');
 Route::delete('/sparepart/penjualan/destroy/{id}', [PenjualanController::class, 'destroy'])->name('sparepart.penjualan.destroy');
+Route::get('/sparepart/penjualan/laporan', [PenjualanController::class, 'laporan'])->name('sparepart.penjualan.laporan');
 
 Route::get('/servis/masuk', [ServisController::class, 'masuk'])->name('servis.masuk');
 Route::get('/servis/masuk/add', [ServisController::class, 'create'])->name('servis.masuk.create');
 Route::post('/servis/masuk/store', [ServisController::class, 'store'])->name('servis.masuk.store');
 Route::get('/servis/masuk/cetak/{id}', [ServisController::class, 'cetak'])->name('servis.masuk.cetak');
+Route::get('/servis/cetak', [ServisController::class, 'cetakAll'])->name('servis.masuk.cetak.all');
+Route::get('/servis/masuk/selesai/{id}', [ServisController::class, 'selesai'])->name('servis.masuk.selesai');
+Route::post('/servis/masuk/simpan_selesai', [ServisController::class, 'simpan_selesai'])->name('servis.masuk.selesai.simpan');
+
 Route::get('/servis/masuk/ambil/{id}', [ServisController::class, 'ambil'])->name('servis.masuk.ambil');
-Route::post('/servis/masuk/selesai/{id}', [ServisController::class, 'selesai'])->name('servis.masuk.selesai');
-Route::post('/servis/masuk/simpan_ambil', [ServisController::class, 'simpan_ambil'])->name('servis.masuk.diambil');
+Route::post('/servis/masuk/simpan_ambil', [ServisController::class, 'simpan_ambil'])->name('servis.masuk.ambil.simpan');
 
 Route::get('/servis/keluar', [ServisController::class, 'keluar'])->name('servis.keluar');
+Route::get('/servis/keluar/cetak/{id}', [ServisController::class, 'keluarCetak'])->name('servis.keluar.cetak');
 
 Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
