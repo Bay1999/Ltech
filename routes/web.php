@@ -60,7 +60,7 @@ Route::get('/servis/masuk', [ServisController::class, 'masuk'])->name('servis.ma
 Route::get('/servis/masuk/add', [ServisController::class, 'create'])->name('servis.masuk.create');
 Route::post('/servis/masuk/store', [ServisController::class, 'store'])->name('servis.masuk.store');
 Route::get('/servis/masuk/cetak/{id}', [ServisController::class, 'cetak'])->name('servis.masuk.cetak');
-Route::get('/servis/cetak', [ServisController::class, 'cetakAll'])->name('servis.masuk.cetak.all');
+Route::get('/servis/cetak', [ServisController::class, 'cetakAll'])->name('servis.cetak.all');
 Route::get('/servis/masuk/selesai/{id}', [ServisController::class, 'selesai'])->name('servis.masuk.selesai');
 Route::post('/servis/masuk/simpan_selesai', [ServisController::class, 'simpan_selesai'])->name('servis.masuk.selesai.simpan');
 

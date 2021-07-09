@@ -9,11 +9,23 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <h6 class="m-0 font-weight-bold text-primary" style="padding-top:.7rem">Data Servis Masuk</h6>
                 </div>
-                <div class="col-md-6 text-right">
-                    <a href="{{ route('servis.masuk.cetak.all')}}" target="blank" class="btn btn-primary"><i class="fa fa-print"></i> Printout Servis</a>
+                <div class="col-md-5">
+                    <form action="{{ route('servis.masuk')}}" method="get">
+                    <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="Cari berdasarkan barang/customer/invoice">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary" type="button">
+                                <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="{{ route('servis.cetak.all', 'servis=masuk')}}" target="blank" class="btn btn-primary"><i class="fa fa-print"></i> Printout Servis</a>
                     <a href="{{ route('servis.masuk.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Servis</a>
                 </div>
             </div>

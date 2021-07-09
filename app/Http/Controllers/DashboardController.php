@@ -35,9 +35,10 @@ class DashboardController extends Controller
         $pendapatanPenjualan = PenjualanModel::whereMonth('created_at', $now)->sum('harga_total');
         $totalPendapatan = $pendapatanServis + $pendapatanPenjualan;
 
-        $pembelian = PembelianModel::whereMonth('created_at', $now)->sum('harga_beli');
+        // $pembelian = PembelianModel::whereMonth('created_at', $now)->sum('harga_beli');
         $jumlahSparepart = SparepartModel::count();
 
+        $servisSelesai = ServisModel::where('status', 'selesai')->count();
         $servisProses = ServisModel::where('status', 'proses')->count();
         $date = Carbon::now();
 
@@ -58,18 +59,6 @@ class DashboardController extends Controller
 
         $sparepart = SparepartModel::get();
 
-        // $nameSparepart = array();
-        // $stokSparepart = array();
-        // foreach ($sparepart as $part) {
-        //     $nameSparepart[] = $part->name;
-        //     $stokSparepart[] = $part->stok;
-        // }
-
-        // $pie = array(
-        //     'name' => json_encode($nameSparepart),
-        //     'stok' => json_encode($stokSparepart)
-        // );
-
-        return view('layouts.dashboard', compact('totalPendapatan', 'pembelian', 'jumlahSparepart', 'servisProses', 'chart', 'sparepart'));
+        return view('layouts.dashboard', compact('totalPendapatan', 'jumlahSparepart', 'servisProses', 'servisSelesai', 'chart', 'sparepart'));
     }
 }

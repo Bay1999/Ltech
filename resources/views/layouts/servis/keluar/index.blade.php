@@ -12,9 +12,11 @@
                 <div class="col-md-6">
                     <h6 class="m-0 font-weight-bold text-primary" style="padding-top:.7rem">Data Servis Keluar</h6>
                 </div>
-                {{-- <div class="col-md-6 text-right">
-                    <a href="{{ route('servis.masuk.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Servis</a>
-                </div> --}}
+                
+                <div class="col-md-6 text-right">
+                    <a href="{{ route('servis.cetak.all', 'servis=keluar')}}" target="blank" class="btn btn-primary"><i class="fa fa-print"></i> Printout Servis</a>
+                    {{-- <a href="{{ route('servis.masuk.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Servis</a> --}}
+                </div>
             </div>
         </div>
         <div class="card-body">

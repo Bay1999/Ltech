@@ -14,9 +14,16 @@ class ServisController extends Controller
     {
         $this->middleware('auth');
     }
-    public function masuk()
+    public function masuk(Request $req)
     {
-        $servisMasuk = ServisModel::where('flag', '=', 'masuk')->latest()->simplePaginate(10);
+        $servisMasuk = ServisModel::where('flag', '=', 'masuk')
+            ->when($req->query('search'), function ($query, $search) {
+                return $query->where('nama_customer', 'like', '%' . $search . '%')
+                    ->orWhere('nama_barang', 'like', '%' . $search . '%')
+                    ->orWhere('invoice', 'like', '%' . $search . '%');
+            })
+            ->latest()
+            ->simplePaginate(10);
 
         return view('layouts.servis.index', compact('servisMasuk'));
     }
@@ -60,8 +67,16 @@ class ServisController extends Controller
         // return $pdf->download('Servis Masuk.pdf');
     }
 
-    public function cetakAll()
+    public function cetakAll(Request $req)
     {
+        $monthNow = Carbon::now()->format('m');
+        $datas = ServisModel::whereMonth('created_at', $monthNow)
+            ->when($req->query('servis'), function ($query, $servis) {
+                return $query->where('flag', $servis);
+            })
+            ->get();
+        // dd($monthNow);
+        return view('layouts.pdf.laporanServisMasuk', compact('datas'));
     }
 
     public function ambil($id)
@@ -109,7 +124,9 @@ class ServisController extends Controller
 
     public function keluar()
     {
-        $servisKeluar = ServisModel::where('flag', '=', 'keluar')->latest()->simplePaginate(10);
+        $servisKeluar = ServisModel::where('flag', '=', 'keluar')
+            ->latest()
+            ->simplePaginate(10);
 
         return view('layouts.servis.keluar.index', compact('servisKeluar'));
     }
