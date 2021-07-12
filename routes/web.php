@@ -22,8 +22,8 @@ use App\Http\Controllers\DashboardController;
 */
 
 Route::get('/', function () {
-    return redirect()->route('dashboard');
-})->name('home');
+    return view('index');
+});
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
