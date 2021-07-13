@@ -22,11 +22,14 @@ use App\Http\Controllers\DashboardController;
 */
 
 Route::get('/', function () {
+    return view('index');
+});
+
+Route::get('/home', function () {
     return redirect()->route('dashboard');
-})->name('home');
+});
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
 Route::get('/teknisi', [TeknisiController::class, 'index'])->name('teknisi.index');
 Route::get('/teknisi/add', [TeknisiController::class, 'create'])->name('teknisi.create');
 Route::get('/teknisi/edit/{id}', [TeknisiController::class, 'edit'])->name('teknisi.edit');
